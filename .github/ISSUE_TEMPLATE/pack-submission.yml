@@ -1,0 +1,82 @@
+name: Submit a pack
+description: Propose a community pack for the Action Stations catalog.
+title: "Pack submission: <pack id> <version>"
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for sharing. Do not attach the `.aspack` file to this issue. Host it at a public
+        https address (for example a release asset in your own public repository); a maintainer
+        downloads it, checks the hash and reviews it. Read
+        [Share a pack](https://actionstations.ai/packs/share/) first.
+  - type: input
+    id: pack-id
+    attributes:
+      label: Pack id
+      description: Reverse-DNS id from pack.json, for example org.example.water-utility-pio. Ids starting with ai.actionstations. are reserved.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Semantic version from pack.json, for example 1.0.0.
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Address of the .aspack file
+      description: A public https address that downloads the file directly.
+      placeholder: https://github.com/your-name/your-repo/releases/download/v1.0.0/org.example.pack-1.0.0.aspack
+    validations:
+      required: true
+  - type: input
+    id: sha256
+    attributes:
+      label: SHA-256 of the file
+      description: 64 lowercase hex characters. `node scripts/validate-pack.mjs` prints it.
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What the pack is for
+      description: Who would use it and for what kind of exercise.
+    validations:
+      required: true
+  - type: input
+    id: domains
+    attributes:
+      label: Domains
+      description: Domain ids the pack targets, separated by commas, or "any".
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License of the pack
+      description: SPDX id. Accepted - CC0-1.0, CC-BY-4.0, CC-BY-SA-4.0, MIT, Apache-2.0, or a LicenseRef- license with its text included in the pack. No non-commercial licenses.
+    validations:
+      required: true
+  - type: textarea
+    id: credit
+    attributes:
+      label: Credit
+      description: Anyone besides you who should be named in the pack (name, GitHub user, role). These go in `contributors` in pack.json.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have the right to distribute every file in the pack under the stated licenses.
+          required: true
+        - label: Organizations, people and private businesses in examples and previews are fictional.
+          required: true
+        - label: Documents are public domain or openly licensed, and each is listed with its license.
+          required: true
+        - label: I ran `node scripts/validate-pack.mjs` (or the app's Export as pack) and it passed.
+          required: true
